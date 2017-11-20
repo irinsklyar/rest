@@ -12,7 +12,7 @@
         <cxf.version>3.1.5</cxf.version>
     </properties>
     <name>rest</name>
-    <url>http://maven.apache.org</url>
+    <!--<url>http://maven.apache.org</url>-->
 
 
     <dependencies>
@@ -28,18 +28,30 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
 
         <!--guava-->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>14.0.1</version>
+            <version>16.0.1</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
         </dependency>
         <!--jackson-->
         <dependency>
@@ -62,7 +74,7 @@
             <artifactId>solr-solrj</artifactId>
             <version>4.4.0</version>
         </dependency>
-        <!--weather.cxf-->
+        <!--cxf-->
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
@@ -103,11 +115,12 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.6.6</version>
         </dependency>
+
+        <!--cassandra-->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-core</artifactId>
+            <version>3.1.0</version>
         </dependency>
 
     </dependencies>

@@ -1,6 +1,7 @@
 package com.training.process;
 
 import com.training.model.Weather;
+import com.training.repo.WeatherDaoImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,6 +16,8 @@ import static org.mockito.Mockito.when;
 public class WeatherTest {
     @Mock
     private FetchWeatherProcess connToApi;
+    @Mock
+    private WeatherDaoImpl weatherDao;
     @InjectMocks
     private WeatherProcessImpl weatherProcess;
 
