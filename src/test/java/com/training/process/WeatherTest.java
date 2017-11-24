@@ -2,15 +2,18 @@ package com.training.process;
 
 import com.training.model.Weather;
 import com.training.repo.WeatherDaoImpl;
+import com.training.service.WeatherServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
-
 
 @RunWith(MockitoJUnitRunner.class)
 public class WeatherTest {
@@ -19,7 +22,7 @@ public class WeatherTest {
     @Mock
     private WeatherDaoImpl weatherDao;
     @InjectMocks
-    private WeatherProcessImpl weatherProcess;
+    private WeatherServiceImpl weatherProcess;
 
     @Test
     public void shouldReturnExpectedWeatherObject() throws Exception {
@@ -29,18 +32,12 @@ public class WeatherTest {
         weatherExpected.setTemperature("277.15");
         weatherExpected.setWind("4");
         weatherExpected.setError(null);
+        String jsonString = new String(Files.readAllBytes(
+                Paths.get(getClass().getClassLoader().getResource("jsonstring1.json").toURI())));
 
-        String jsonString = "{\"coord\":{\"lon\":24.02,\"lat\":49.84}," +
-                "\"weather\":[{\"id\":804,\"main\":\"Clouds\",\"description\":\"overcast clouds\",\"icon\":\"04d\"}]," +
-                "\"base\":\"stations\"," +
-                "\"main\":{\"temp\":277.15,\"pressure\":1021,\"humidity\":100,\"temp_min\":277.15,\"temp_max\":277.15}," +
-                "\"visibility\":10000,\"wind\":{\"speed\":4,\"deg\":320}," +
-                "\"clouds\":{\"all\":90},\"dt\":1510657200," +
-                "\"sys\":{\"type\":1,\"id\":7361,\"message\":0.0042,\"country\":\"UA\",\"sunrise\":1510637720,\"sunset\":1510670456}," +
-                "\"id\":702550,\"name\":\"Lviv\",\"cod\":200}";
         when(connToApi.getWeatherInfo("Lviv")).thenReturn(jsonString);
         //when
-        Weather weatherActual = weatherProcess.getWeather("Lviv");
+        Weather weatherActual = weatherProcess.getWeatherbyCityName("Lviv");
         //then
         assertEquals(weatherExpected, weatherActual);
     }
@@ -49,16 +46,16 @@ public class WeatherTest {
     public void shouldReturnWeatherObjectWithErrorCode() throws Exception {
         //given
         Weather weatherExpected = new Weather();
-        weatherExpected.setCity("Lvi city name wasn't found");
+        weatherExpected.setCity("Lvi city name was not found");
         weatherExpected.setTemperature(null);
         weatherExpected.setWind(null);
         weatherExpected.setError("404");
-        String jsonString = "{\"cod\":\"404\",\"message\":\"city not found\"}";
+        String jsonString = new String(Files.readAllBytes(
+                Paths.get(getClass().getClassLoader().getResource("jsonstring2.json").toURI())));
         when(connToApi.getWeatherInfo("Lvi")).thenReturn(jsonString);
         //when
-        Weather weatherActual = weatherProcess.getWeather("Lvi");
+        Weather weatherActual = weatherProcess.getWeatherbyCityName("Lvi");
         //then
         assertEquals(weatherExpected, weatherActual);
     }
-
 }

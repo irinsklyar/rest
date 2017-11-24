@@ -9,7 +9,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <cxf.version>3.1.5</cxf.version>
+        <cxf.version>3.1.2</cxf.version>
     </properties>
     <name>rest</name>
     <!--<url>http://maven.apache.org</url>-->
@@ -20,12 +20,6 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>2.12.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -91,12 +85,18 @@
             <groupId>org.apache.aries.blueprint</groupId>
             <artifactId>org.apache.aries.blueprint.annotation.api</artifactId>
             <version>1.0.0</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.json</artifactId>
             <version>1.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-common</artifactId>
+            <version>2.22.2</version>
         </dependency>
         <dependency>
             <groupId>org.json</groupId>
@@ -123,6 +123,12 @@
             <version>3.1.0</version>
         </dependency>
 
+        <!--<dependency>-->
+        <!--<groupId>javax.servlet</groupId>-->
+        <!--<artifactId>javax.servlet-api</artifactId>-->
+        <!--<version>3.1.0</version>-->
+        <!--</dependency>-->
+
     </dependencies>
     <build>
         <plugins>
@@ -140,15 +146,41 @@
                     </instructions>
                 </configuration>
             </plugin>
+
+            <!--<plugin>-->
+            <!--<groupId>org.apache.karaf.tooling</groupId>-->
+            <!--<artifactId>karaf-maven-plugin</artifactId>-->
+            <!--<version>3.0.8</version>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<configuration>-->
+            <!--<featuresFile>target/feature/feature.xml</featuresFile>-->
+            <!--</configuration>-->
+            <!--</execution>-->
+            <!--</executions>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.karaf.tooling</groupId>
                 <artifactId>karaf-maven-plugin</artifactId>
-                <version>4.1.3</version>
+                <version>3.0.8</version>
+                <extensions>true</extensions>
                 <executions>
                     <execution>
+                        <id>generate-feature</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>features-generate-descriptor</goal>
+                        </goals>
                         <configuration>
-                            <featuresFile>target/feature/feature.xml</featuresFile>
+                            <aggregateFeatures>true</aggregateFeatures>
                         </configuration>
+                    </execution>
+                    <execution>
+                        <id>create-kar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>features-create-kar</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

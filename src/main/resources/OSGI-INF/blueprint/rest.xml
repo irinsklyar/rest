@@ -13,7 +13,6 @@
         </cxf:features>
     </cxf:bus>
 
-
     <jaxrs:server address="/karafsimple" id="someRestService">
         <jaxrs:serviceBeans>
             <ref component-id="restServiceImpl"/>
@@ -27,17 +26,12 @@
     <service ref="restServiceImpl" interface="com.training.service.WeatherService"/>
 
     <bean id="restServiceImpl" class="com.training.service.WeatherServiceImpl">
-        <argument ref="processBean"/>
-    </bean>
-
-    <service ref="processBean" interface="com.training.process.WeatherProcess"/>
-    <bean id="processBean" class="com.training.process.WeatherProcessImpl">
-        <property name="connToApi" ref="connToApi"/>
-        <property name="weatherDao" ref="weatherDao"/>
+        <argument ref="connToApi"/>
+        <argument ref="weatherDao"/>
     </bean>
     <bean id="connToApi" class="com.training.process.FetchWeatherProcess"/>
     <bean id="weatherDao" class="com.training.repo.WeatherDaoImpl">
-        <property name="cassandraConnector" ref="cassandraConnector"/>
+        <argument ref="cassandraConnector"/>
     </bean>
     <bean id="cassandraConnector" class="com.training.repo.CassandraConnector"/>
 
