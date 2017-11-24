@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.2.1"
+          name="rest">
+    <repository>mvn:org.apache.cxf.karaf/apache-cxf/3.1.2/xml/features</repository>
+
+    <feature name="rest" version="1.0-SNAPSHOT" description="rest">
+        <feature prerequisite="true">http</feature>
+        <feature prerequisite="true">cxf</feature>
+        <bundle>mvn:weather/rest/1.0-SNAPSHOT</bundle>
+        <bundle>mvn:weather/rest/1.0-SNAPSHOT</bundle>
+    </feature>
+
+</features>
