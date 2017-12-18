@@ -2,6 +2,7 @@ package com.training.repo;
 
 import com.training.model.Weather;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
@@ -41,6 +42,22 @@ public class WeatherDaoImpl {
         cassandraConnector.getSession().execute(query);
         cassandraConnector.close();
     }
+
+    public File getWeather() {
+        Properties prop = getConfig();
+        cassandraConnector.connect(prop.getProperty("node"), Integer.parseInt(prop.getProperty("port")));
+        StringBuilder sb = new StringBuilder("SELECT * FROM ")
+                .append("weather_records.records").append(" WHERE ")
+                .append("time > ").append(new Date().getTime())   //-1h
+                .append(";");
+
+        return new File("");
+    }
+
+    public void sendWeather() {
+        System.out.println("gggg");
+    }
+
 }
 
 

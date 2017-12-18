@@ -1,0 +1,17 @@
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
+    <bean id="mail" class="com.training.repo.SendingMail">
+    </bean>
+    <camelContext xmlns="http://camel.apache.org/schema/blueprint">
+
+        <propertyPlaceholder id="properties" location="config.properties"/>
+        <route id="getWeather">
+            <from uri="timer://sendEmail?fixedRate=true&amp;period=10s" />
+            <to uri="bean:mail?sendWeather" />
+        </route>
+        <!--<route id="send">-->
+            <!--<from uri="timer://sendEmail?fixedRate=true&amp;period=3600s" />-->
+            <!--<to uri="{{mail.uri}}" />-->
+        <!--</route>-->
+    </camelContext>
+
+</blueprint>
