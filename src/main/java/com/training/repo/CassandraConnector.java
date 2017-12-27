@@ -16,7 +16,7 @@ public class CassandraConnector {
         }
         cluster = clusterBuilder.build();
 
-        session = cluster.connect();
+        session = cluster.connect("weather_records");
     }
 
     public void createKeyspace(

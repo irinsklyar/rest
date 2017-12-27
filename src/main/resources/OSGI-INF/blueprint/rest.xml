@@ -23,6 +23,22 @@
         </jaxrs:providers>
 
     </jaxrs:server>
+
+
+    <bean id="send" class="com.training.repo.SendMail"
+          init-method="configure">
+        <argument ref="camel"/>
+        <argument ref="weatherDao"/>
+    </bean>
+    <bean id="camel" class="org.apache.camel.core.osgi.OsgiDefaultCamelContext">
+        <argument ref="blueprintBundleContext"/>
+    </bean>
+    <!--<bean id="weatherDaoS" class="com.training.repo.WeatherDaoImpl">-->
+        <!--<argument ref="cassandraConnectorS"/>-->
+    <!--</bean>-->
+    <!--<bean id="cassandraConnectorS" class="com.training.repo.CassandraConnector"/>-->
+
+
     <service ref="restServiceImpl" interface="com.training.service.WeatherService"/>
 
     <bean id="restServiceImpl" class="com.training.service.WeatherServiceImpl">

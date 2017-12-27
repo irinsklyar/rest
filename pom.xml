@@ -9,7 +9,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <cxf.version>3.1.2</cxf.version>
+        <cxf.version>3.2.1</cxf.version>
     </properties>
     <name>rest</name>
     <!--<url>http://maven.apache.org</url>-->
@@ -73,20 +73,41 @@
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
             <version>${cxf.version}</version>
+
+
         </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-transports-http</artifactId>
-            <version>${cxf.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.apache.cxf</groupId>-->
+            <!--<artifactId>cxf-rt-transports-http</artifactId>-->
+            <!--<version>${cxf.version}</version>-->
+
+
+        <!--</dependency>-->
 
         <!--bluprint-->
         <dependency>
             <groupId>org.apache.aries.blueprint</groupId>
             <artifactId>org.apache.aries.blueprint.annotation.api</artifactId>
             <version>1.0.0</version>
+
+        </dependency>
+
+        <!--camel-->
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-core-osgi</artifactId>
+            <version>2.19.0</version>
+
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.osgi/org.osgi.core -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>4.3.0</version>
             <scope>provided</scope>
         </dependency>
+
 
         <dependency>
             <groupId>org.glassfish</groupId>
@@ -162,7 +183,7 @@
             <plugin>
                 <groupId>org.apache.karaf.tooling</groupId>
                 <artifactId>karaf-maven-plugin</artifactId>
-                <version>3.0.8</version>
+                <version>4.1.0</version>
                 <extensions>true</extensions>
                 <executions>
                     <execution>
@@ -179,7 +200,7 @@
                         <id>create-kar</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>features-create-kar</goal>
+                            <goal>kar</goal>
                         </goals>
                     </execution>
                 </executions>

@@ -5,6 +5,7 @@ import com.training.process.FetchWeatherProcess;
 import com.training.repo.WeatherDaoImpl;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,6 +31,7 @@ public class WeatherServiceImpl implements WeatherService {
                 weather.setTemperature(Double.toString(rawData.getJSONObject("main").getDouble("temp")));
                 weather.setWind(Integer.toString(rawData.getJSONObject("wind").getInt("speed")));
                 weather.setCity(city);
+                weather.setTime(new Date().toString());
             }
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, e.toString(), e);
